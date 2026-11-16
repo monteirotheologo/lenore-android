@@ -1,9 +1,28 @@
+# LENORE ANDROID APPLICATION AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+# LENORE ANDROID APPLICATION AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+# LENORE ANDROID APPLICATION AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+# LENORE ANDROID APPLICATION AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+# LENORE ANDROID APPLICATION AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+# LENORE ANDROID APPLICATION AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+# LENORE ANDROID APPLICATION AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+# LENORE ANDROID APPLICATION AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+# LENORE ANDROID APPLICATION AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+# LENORE ANDROID APPLICATION AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+# LENORE ANDROID APPLICATION AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+# LENORE ANDROID APPLICATION AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+# LENORE ANDROID APPLICATION AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+# LENORE ANDROID APPLICATION AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+# LENORE ANDROID APPLICATION AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+# LENORE ANDROID APPLICATION AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+# LENORE ANDROID APPLICATION AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+# LENORE ANDROID APPLICATION AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+
 import subprocess
 import sys
 import os
 
 os.system("python.exe -m pip install --upgrade pip")
-for package in ["terminaltexteffects", "python-socketio", "getmac", "rich", "prompt_toolkit"]:
+for package in ["terminaltexteffects", "python-socketio", "rich", "prompt_toolkit"]:
     subprocess.check_call([sys.executable, "-m", "pip", "install", package])
 
 from prompt_toolkit import PromptSession
@@ -16,7 +35,6 @@ from time import asctime
 import socketio
 import logging
 import socket
-import getmac
 
 LOGO_TEXT = """                     
 `7MMF'                                                                              
@@ -71,8 +89,6 @@ WELCOME_TEXT = """
 """
 
 SESSION = PromptSession(erase_when_done=True)
-IP_ADDRESS = ""
-MAC_ADDRESS = ""
 
 LOGO = BinaryPath(LOGO_TEXT.center(89))
 LOGO.terminal_config.canvas_width = -1
@@ -141,18 +157,6 @@ class Utils:
             return content
 
     @staticmethod
-    def get_ip():
-        return socket.gethostbyname(HOSTNAME)
-
-    @staticmethod
-    def get_mac():
-        try:
-            mac_address = getmac.get_mac_address()
-        except:
-            mac_address = ""
-        return mac_address
-
-    @staticmethod
     def register():
         global is_logged_in, username, username_checking
 
@@ -173,8 +177,8 @@ class Utils:
         result = client.call("register", {
             "username": username_checking,
             "password": password_checking,
-            "ip_address": IP_ADDRESS,
-            "mac_address": MAC_ADDRESS
+            "ip_address": "ANDROID-USER",
+            "mac_address": "ANDROID-USER"
         })
 
         if result["okay"]:
@@ -211,7 +215,7 @@ class Utils:
         global username
 
         result = client.call("setadmin", {
-            "username" : target
+            "username" : target,
             "admin_username" : username
         })
         
@@ -230,7 +234,7 @@ class Utils:
         global username
 
         result = client.call("removeadmin", {
-            "username" : target
+            "username" : target,
             "admin_username" : username
         })
         
@@ -274,7 +278,7 @@ class Utils:
 class Init:
     @staticmethod
     def start():
-        global client, events, IP_ADDRESS, MAC_ADDRESS, FAKE_HEADER
+        global client, events
 
         Utils.clear_screen()
         logging.disable(logging.CRITICAL)
@@ -290,9 +294,6 @@ class Init:
         except socketio.exceptions.ConnectionError as exc:
             print(f"[SYSTEM] : connection failed: {exc}")
             return False
-
-        IP_ADDRESS = Utils.get_ip()
-        MAC_ADDRESS = Utils.get_mac()
 
         return True
 
