@@ -28,6 +28,7 @@ for package in ["terminaltexteffects", "python-socketio", "rich", "prompt_toolki
 from prompt_toolkit import PromptSession
 from prompt_toolkit.patch_stdout import patch_stdout
 from terminaltexteffects.effects.effect_binarypath import BinaryPath
+from terminaltexteffects.utils.graphics import Color
 from terminaltexteffects.effects.effect_expand import Expand
 from rich.panel import Panel
 from rich import print
@@ -91,6 +92,11 @@ WELCOME_TEXT = """
 SESSION = PromptSession(erase_when_done=True)
 
 LOGO = BinaryPath(LOGO_TEXT.center(89))
+
+LOGO.terminal_config.binary_colors = (Color("#ff8700"),)
+LOGO.effect_config.binary_colors = (Color("#ff8700"),)
+LOGO.effect_config.final_gradient_stops = (Color("#ff8700"),)
+
 LOGO.terminal_config.canvas_width = -1
 LOGO.terminal_config.canvas_height = -1
 LOGO.effect_config.movement_speed = 2
